@@ -4,6 +4,7 @@ Production and production-like UAT deployment guidance for **LARAS — Laborator
 
 Start here:
 
+- `RELEASE_DEPLOYMENT_RUNBOOK.md` — operator-oriented, step-by-step release/deploy procedure from VPS preparation through DNS/TLS, exact-SHA release activation, smoke tests, Vercel handoff, normal releases, and rollback;
 - `PRODUCTION_FOUNDATION.md` — topology, release layout, environment contract, deploy sequence, smoke tests, and rollout governance;
 - `BACKUP_RESTORE.md` — PostgreSQL and persistent attachment backup/restore procedure;
 - `ROLLBACK.md` — immutable-release and symlink rollback procedure;
@@ -24,11 +25,13 @@ The durable public product origin is:
 
 The frontend host, API host, VPS, and other infrastructure may change later, but already-issued physical QR labels must continue to resolve through that canonical public hostname and `/q/<public-uuid>` route.
 
-## Repository rename boundary
+## Repository identity
 
-The product is LARAS even while the GitHub repository still carries the legacy `SMARTLAB` repository name. After the controlled repository-rebrand PR is merged and green, the repository should be renamed administratively to `LARAS` before the first production-server deployment where practical.
+The repository has been administratively renamed to **`yogawillyutomo/LARAS`**. Active deployment scripts, developer remotes, and integrations should use:
 
-After that rename, active deployment scripts, developer remotes, and integrations should use the new repository URL instead of relying on GitHub redirects.
+`https://github.com/yogawillyutomo/LARAS.git`
+
+Do not rely on the legacy `SMARTLAB` repository redirect for new deployment automation.
 
 ## Deferred infrastructure
 
