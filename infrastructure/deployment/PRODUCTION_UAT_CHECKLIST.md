@@ -5,21 +5,26 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 ## Before server changes
 
 - [ ] Record exact API Git SHA.
-- [ ] Confirm the SHA belongs to the S5.6 code tree under test.
+- [ ] Confirm the SHA belongs to the S5.6 code tree under test plus the approved deployment-foundation tranche.
 - [ ] Confirm PR #90 remains Draft and unmerged.
 - [ ] Confirm `laras.bakaranproject.com` is the canonical frontend/QR origin.
 - [ ] Decide the VPS public IPv4 address for `api.laras.bakaranproject.com`.
 - [ ] Ensure SSH key access exists; disable password/root SSH where practical.
 - [ ] Ensure system clock/NTP is healthy.
+- [ ] Confirm host/provider firewall does not expose PostgreSQL `5432` publicly.
 
 ## DNS and TLS
 
 - [ ] Create Cloudflare `A` record `api.laras` -> VPS IPv4.
 - [ ] Keep Cloudflare proxy DNS-only for initial UAT.
 - [ ] Verify public DNS resolves to the expected VPS.
+- [ ] Install the HTTP-only Nginx bootstrap vhost.
+- [ ] Prove `/.well-known/acme-challenge/` is publicly reachable.
 - [ ] Issue a valid TLS certificate for `api.laras.bakaranproject.com`.
-- [ ] Verify HTTP redirects to HTTPS.
+- [ ] Replace the bootstrap vhost with the normal HTTPS template.
+- [ ] Verify HTTP redirects to HTTPS while the ACME path remains reachable.
 - [ ] Verify the certificate hostname and chain in a normal browser/curl client.
+- [ ] `certbot renew --dry-run` succeeds.
 
 ## Runtime packages
 
@@ -27,6 +32,7 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 - [ ] PHP 8.3 CLI + PHP-FPM installed.
 - [ ] Required PHP extensions for Laravel/PostgreSQL installed (`pdo_pgsql`, mbstring, openssl, tokenizer, xml, ctype, json, fileinfo, curl as required by platform/packages).
 - [ ] Composer available to the deployment operator.
+- [ ] `composer check-platform-reqs --no-dev` succeeds inside the release.
 - [ ] PostgreSQL client tools (`psql`, `pg_dump`, `pg_restore`) installed.
 - [ ] PostgreSQL server reachable only through loopback/private network.
 
@@ -34,7 +40,9 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 
 - [ ] `/var/www/laras-api/releases` exists.
 - [ ] `/var/www/laras-api/shared/.env` exists and is not world-readable.
-- [ ] `/var/www/laras-api/shared/storage` exists and is writable by the web/deploy group.
+- [ ] Persistent directories exist: `storage/app/private`, `storage/framework/cache/data`, `storage/framework/sessions`, `storage/framework/views`, and `storage/logs`.
+- [ ] Persistent storage is writable by the intended PHP-FPM/deploy group, without `chmod 777`.
+- [ ] Release-local `apps/api/bootstrap/cache` is writable by the intended PHP-FPM/deploy group.
 - [ ] `/var/www/laras-api/backups` exists with restrictive permissions.
 - [ ] `current` points only to an immutable release directory.
 - [ ] Nginx document root points to `current/apps/api/public`.
@@ -46,20 +54,24 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 - [ ] Persistent `APP_KEY` generated and backed up securely.
 - [ ] `APP_URL=https://api.laras.bakaranproject.com`.
 - [ ] Unique LARAS DB user/password configured.
+- [ ] LARAS DB role is not superuser and has no unnecessary `CREATEDB`/`CREATEROLE` capability.
 - [ ] `SANCTUM_STATEFUL_DOMAINS=laras.bakaranproject.com`.
-- [ ] `CORS_ALLOWED_ORIGINS=https://laras.bakaranproject.com`.
+- [ ] `CORS_ALLOWED_ORIGINS=https://laras.bakaranproject.com` and contains no wildcard.
 - [ ] `SESSION_DOMAIN=laras.bakaranproject.com`.
 - [ ] `SESSION_COOKIE=laras_session`.
 - [ ] `SESSION_SECURE_COOKIE=true`.
 - [ ] `SESSION_HTTP_ONLY=true`.
 - [ ] `SESSION_SAME_SITE=lax`.
+- [ ] `QUEUE_CONNECTION=sync` while no queue worker is deployed.
 - [ ] Activity Report attachment disk points to persistent private storage.
 
 ## Database and release
 
 - [ ] Pre-migration PostgreSQL backup created.
 - [ ] Backup archive passes `pg_restore --list`.
+- [ ] Database and persistent-storage backup SHA-256 checksums verify.
 - [ ] `composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader` succeeds.
+- [ ] `composer check-platform-reqs --no-dev` succeeds.
 - [ ] `php artisan migrate --force` succeeds.
 - [ ] No production seeder is run implicitly.
 - [ ] `php artisan config:cache` succeeds.
@@ -73,7 +85,7 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 - [ ] `/api/v1/me` without login returns JSON 401 `UNAUTHENTICATED`.
 - [ ] Allowed origin receives `Access-Control-Allow-Origin: https://laras.bakaranproject.com`.
 - [ ] Allowed origin receives `Access-Control-Allow-Credentials: true`.
-- [ ] An arbitrary origin is not reflected.
+- [ ] An arbitrary origin is never reflected as `Access-Control-Allow-Origin`; a fixed canonical LARAS ACAO value is acceptable for a rejected origin.
 - [ ] `/sanctum/csrf-cookie` works over HTTPS.
 - [ ] Secure cookies have the expected domain/same-site behavior.
 
@@ -101,6 +113,6 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 
 - [ ] Previous release directory still exists.
 - [ ] Previous known-good SHA is recorded.
-- [ ] Backup filename is recorded.
+- [ ] Database + storage backup filenames and checksums are recorded.
 - [ ] Operator knows the symlink rollback steps.
 - [ ] No destructive migration was introduced without an explicit recovery plan.

@@ -1,16 +1,18 @@
 # LARAS Laravel API — production/UAT Nginx template
 #
 # Install this TLS server only after a certificate for
-# api.laras.bakaranproject.com exists. The deployment README describes the
-# HTTP bootstrap / ACME sequence.
+# api.laras.bakaranproject.com exists. Use the HTTP-only bootstrap template
+# for the first ACME issuance.
 
 server {
     listen 80;
     listen [::]:80;
     server_name api.laras.bakaranproject.com;
 
-    location /.well-known/acme-challenge/ {
-        root /var/www/html;
+    root /var/www/laras-acme;
+
+    location ^~ /.well-known/acme-challenge/ {
+        try_files $uri =404;
     }
 
     location / {

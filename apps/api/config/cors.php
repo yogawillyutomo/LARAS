@@ -6,6 +6,12 @@ $allowedOrigins = array_values(array_filter(array_map(
     explode(',', (string) env('CORS_ALLOWED_ORIGINS', $defaultOrigins))
 )));
 
+if (in_array('*', $allowedOrigins, true)) {
+    throw new RuntimeException(
+        'CORS_ALLOWED_ORIGINS must not contain * because credentialed CORS is enabled.'
+    );
+}
+
 return [
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
