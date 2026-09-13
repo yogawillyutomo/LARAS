@@ -57,7 +57,8 @@ Brand and compatibility contract: [LARAS Brand & Canonical Domain Contract](prod
 - [ADR-001 — Master Data, TESSELA, and legacy SMARTLAB scheduling boundary](architecture/ADR-001-master-data-tessela-smartlab-scheduling-boundary.md)
 - [ADR-002 — Asset, Inventory, Loan, and Preventive Maintenance Boundary](architecture/ADR-002-asset-inventory-loan-maintenance-boundary.md)
 - [ADR-003 — Corrective Work Order Boundary](architecture/ADR-003-corrective-work-order-boundary.md)
-- [ADR-004 — PC Monitoring Telemetry Boundary](architecture/ADR-004-pc-monitoring-telemetry-boundary.md)
+
+Active S6 telemetry ADR/contract work is intentionally isolated on its S6 planning/development stack until governance permits reconciliation and merge into `main`; this `main` documentation index does not link branch-only documents.
 
 Existing ADR filenames are not renamed only for cosmetic brand symmetry because durable links and historical evidence matter more than filename consistency.
 
