@@ -1,0 +1,20 @@
+# LARAS API — HTTP-only ACME bootstrap
+#
+# Use this configuration only before the first TLS certificate exists.
+# Create /var/www/laras-acme and issue the certificate with Certbot webroot.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name api.laras.bakaranproject.com;
+
+    root /var/www/laras-acme;
+
+    location ^~ /.well-known/acme-challenge/ {
+        try_files $uri =404;
+    }
+
+    location / {
+        return 404;
+    }
+}
