@@ -1,10 +1,10 @@
-# Deployment
+# LARAS Deployment
 
-LARAS production deployment guidance now lives in this directory.
+Production and production-like UAT deployment guidance for **LARAS — Laboratory Management Platform** lives in this directory.
 
 Start here:
 
-- `PRODUCTION_FOUNDATION.md` — topology, release layout, environment contract, deploy sequence, smoke tests, and S5.6 governance;
+- `PRODUCTION_FOUNDATION.md` — topology, release layout, environment contract, deploy sequence, smoke tests, and rollout governance;
 - `BACKUP_RESTORE.md` — PostgreSQL and persistent attachment backup/restore procedure;
 - `ROLLBACK.md` — immutable-release and symlink rollback procedure;
 - `PRODUCTION_UAT_CHECKLIST.md` — evidence checklist for the first server deployment;
@@ -14,8 +14,22 @@ Start here:
 
 ## Current scope
 
-This is a **production-like UAT foundation**, not a declaration that S5.6 is production-ready.
+The deployment foundation was merged with S5.6. That merge proves the code/config tranche passed its automated gates; it does **not** by itself establish production readiness.
 
-The first API runtime should deploy the exact S5.6 code tree plus this approved deployment-foundation tranche so the Vercel frontend and Laravel API expose compatible contracts. PR #90 still requires browser/privacy/auth/PDF/physical-printer/real-phone QR evidence before merge.
+The next server deployment must use a verified post-rebrand `main` and record runtime evidence against the real environment. Production acceptance still requires the locked browser/privacy/auth/PDF/physical-printer/real-phone QR checks.
 
-Redis, queue workers, scheduler services, Docker topology, centralized observability, and off-server backup automation are deliberately deferred until there is a real workload or an explicit operational requirement. Until a queue worker is intentionally deployed, production uses the synchronous queue driver so work cannot silently accumulate unprocessed.
+The durable public product origin is:
+
+`https://laras.bakaranproject.com`
+
+The frontend host, API host, VPS, and other infrastructure may change later, but already-issued physical QR labels must continue to resolve through that canonical public hostname and `/q/<public-uuid>` route.
+
+## Repository rename boundary
+
+The product is LARAS even while the GitHub repository still carries the legacy `SMARTLAB` repository name. After the controlled repository-rebrand PR is merged and green, the repository should be renamed administratively to `LARAS` before the first production-server deployment where practical.
+
+After that rename, active deployment scripts, developer remotes, and integrations should use the new repository URL instead of relying on GitHub redirects.
+
+## Deferred infrastructure
+
+Redis, queue workers, scheduler services, Docker topology, centralized observability, and off-server backup automation remain deliberately deferred until there is a demonstrated workload or an explicit operational requirement. Until a queue worker is intentionally deployed, production uses the synchronous queue driver so work cannot silently accumulate unprocessed.

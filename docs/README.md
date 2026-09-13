@@ -1,39 +1,31 @@
-# SMARTLAB Documentation
+# LARAS Documentation
 
-This directory is the canonical human entry point for SMARTLAB documentation.
+This directory is the canonical human documentation entry point for **LARAS — Laboratory Asset & Resource Administration System**, a Laboratory Management Platform by **Bakaran Project**.
 
-Repository source, committed contracts, migrations, tests, Git history, pull requests, and exact-head CI remain higher-order evidence when a narrative document disagrees with implementation reality. This index must summarize that evidence; it must not create a second authority.
+Repository source, committed contracts, migrations, tests, Git history, pull requests, exact-head CI, and runtime/UAT evidence remain higher-order evidence when narrative documentation disagrees with implementation reality. This index is an entry point, not a second source of truth.
 
-## Convergence audit baseline
+Canonical public origin: `https://laras.bakaranproject.com`
 
-The documentation-convergence audit was performed on **2026-09-06** against `main@a15d39128126f42591b4b5e1236e8d3e4711fd53`, immediately before the convergence PR was merged. This section is intentionally **historical audit evidence**, not a live repository-status field.
+Brand and compatibility contract: [LARAS Brand & Canonical Domain Contract](product/LARAS_BRAND.md).
 
-At that audit baseline:
-
-- latest merged functional PR was **#73 — S3.5 execution observations, Incident linkage, and report attachments**;
-- functional PR **#74 — S3.6 offline ActivityReport draft sync and operational UAT** was open at head `0dc1556554835d5da3c363976a6ab49adb41d44d`;
-- baseline `main` exact-head GitHub Actions `api-ci` and `web-ci` passed;
-- baseline `main` also had a failing Vercel commit status caused by the Vercel build-rate-limit;
-- PR #74 exact-head `api-ci` and `web-ci` passed, while operator-required browser UAT remained a rollout gate.
-
-For **current** branch, HEAD, PR, and CI status, verify remote GitHub directly. This index intentionally does not embed a mutable “current main SHA”: merging documentation would invalidate such a field immediately and create self-induced documentation drift.
-
-The detailed evidence record is preserved in [Documentation Convergence Audit](architecture/DOCUMENTATION_CONVERGENCE.md).
+> Legacy note: historical filenames, commits, branches, package identifiers, test identities, storage keys, database/schema names, and older documents may still contain `SMARTLAB` / `SmartLab` / `smartlab`. Those are compatibility or historical identifiers. New user-facing product copy uses **LARAS**.
 
 ## Documentation map
 
 ### Product
 
-- [SMARTLAB Operational Workflow Specification](product/SMARTLAB_OPERATIONAL_WORKFLOW_SPEC.md)
-- [Product requirements document](product/PRD_SmartLab_PPLG_v1.0.docx)
+- [LARAS Brand & Canonical Domain Contract](product/LARAS_BRAND.md)
+- [Legacy SMARTLAB Operational Workflow Specification](product/SMARTLAB_OPERATIONAL_WORKFLOW_SPEC.md) — historical filename retained for link stability
+- [Legacy Product Requirements Document](product/PRD_SmartLab_PPLG_v1.0.docx) — historical artifact
 
-### Current Architecture State
+### Current architecture and source of truth
 
 - [Current Architecture State](architecture/CURRENT_STATE.md)
 - [Source-of-Truth Migration](architecture/source-of-truth-migration.md)
 - [Repository Structure](architecture/REPOSITORY_STRUCTURE.md)
+- [Documentation Convergence Audit](architecture/DOCUMENTATION_CONVERGENCE.md)
 
-### Architecture
+### Core architecture
 
 - [Backend Foundation](architecture/backend-foundation.md)
 - [CI Foundation](architecture/ci-foundation.md)
@@ -41,7 +33,7 @@ The detailed evidence record is preserved in [Documentation Convergence Audit](a
 - [Frontend SPA Auth Integration](architecture/frontend-spa-auth-integration.md)
 - [Frontend Laboratory API Integration](architecture/frontend-laboratory-api-integration.md)
 
-### Domain Contracts
+### Domain contracts
 
 - [Academic Master Data](architecture/academic-master-data-contract.md)
 - [Identity Administration](architecture/identity-administration-contract.md)
@@ -56,161 +48,98 @@ The detailed evidence record is preserved in [Documentation Convergence Audit](a
 - [Dated Schedule Exception](architecture/dated-schedule-exception-contract.md)
 - [Priority Event](architecture/priority-event-contract.md)
 - [Laboratory Session + Activity Report](architecture/laboratory-session-activity-report-contract.md)
-- [S4 Asset, Inventory, Loan, and Preventive Maintenance](architecture/asset-inventory-loan-maintenance-contract.md)
-- [S5 Corrective Work Order](architecture/work-order-domain-contract.md)
+- [Asset, Inventory, Loan, and Preventive Maintenance](architecture/asset-inventory-loan-maintenance-contract.md)
+- [Corrective Work Order](architecture/work-order-domain-contract.md)
 - [S4 Prototype Reconciliation Audit](architecture/S4_PROTOTYPE_RECONCILIATION.md)
 
-### ADR
+### Architecture Decision Records
 
-- [ADR-001 — Master Data, TESSELA, and SMARTLAB Scheduling Boundary](architecture/ADR-001-master-data-tessela-smartlab-scheduling-boundary.md)
+- [ADR-001 — Master Data, TESSELA, and legacy SMARTLAB scheduling boundary](architecture/ADR-001-master-data-tessela-smartlab-scheduling-boundary.md)
 - [ADR-002 — Asset, Inventory, Loan, and Preventive Maintenance Boundary](architecture/ADR-002-asset-inventory-loan-maintenance-boundary.md)
 - [ADR-003 — Corrective Work Order Boundary](architecture/ADR-003-corrective-work-order-boundary.md)
 
-ADRs currently live under `docs/architecture/`. A future `docs/adr/` directory is a taxonomy target only; existing ADRs are not moved merely for symmetry.
+Active S6 telemetry ADR/contract work is intentionally isolated on its S6 planning/development stack until governance permits reconciliation and merge into `main`; this `main` documentation index does not link branch-only documents.
 
-### API / Integration Contracts
+Existing ADR filenames are not renamed only for cosmetic brand symmetry because durable links and historical evidence matter more than filename consistency.
+
+### Machine-readable API contracts
 
 Machine-readable API contracts remain outside `docs/`:
 
 - [Contract package](../packages/contracts/README.md)
 - [Root OpenAPI contract](../packages/contracts/openapi.yaml)
 
-`packages/contracts/` is the machine-readable integration contract source of truth and must not be moved into `docs/` merely to make the directory tree look symmetrical.
+`packages/contracts/` is the machine-readable integration-contract source of truth and must not be moved merely to make the directory tree look symmetrical.
 
-### Source-of-Truth Migration
+### Reviews / UAT evidence
 
-- [Full Source-of-Truth Migration](architecture/source-of-truth-migration.md)
-- [Current Architecture State](architecture/CURRENT_STATE.md)
-- [Documentation Convergence Audit](architecture/DOCUMENTATION_CONVERGENCE.md)
+- [S3.6 Offline ActivityReport Draft UAT](reviews/s3.6-offline-draft-uat.md)
+- [S4.6 Reconciliation & Storage-Cleared UAT](reviews/s4.6-reconciliation-uat.md)
 - [S5.4 Work Order Storage-Cleared UAT](reviews/s5.4-work-order-uat.md)
+- S5.6 Asset QR / label evidence and rollout material remain under the relevant S5.6 review/product/deployment documents.
+
+Automated evidence is not a substitute for operator-required browser, privacy, physical-print, or real-device UAT where those gates are explicitly locked.
 
 ### Development
 
 - [Agent / contributor rules](../AGENTS.md)
 - [Codex Review Loop](development/CODEX_REVIEW_LOOP.md)
-
-### Backlog / Roadmap
-
-The milestone table below is the canonical human roadmap summary. Detailed historical backlog context remains in:
-
 - [P0 Frontend Stabilization](backlog/P0_FRONTEND_STABILIZATION.md)
 
-### Security
+### Production / deployment
 
-There is not yet a dedicated `docs/security/` corpus. Until that is created, security boundaries are distributed across:
+Executable configuration and operational guidance remain under `infrastructure/`:
 
-- [AGENTS.md](../AGENTS.md);
-- [Current Architecture State](architecture/CURRENT_STATE.md);
-- domain contracts and server authorization tests;
-- [ADR-001](architecture/ADR-001-master-data-tessela-smartlab-scheduling-boundary.md).
+- [Deployment foundation](../infrastructure/deployment/README.md)
+- [Production foundation](../infrastructure/deployment/PRODUCTION_FOUNDATION.md)
+- [Production UAT checklist](../infrastructure/deployment/PRODUCTION_UAT_CHECKLIST.md)
+- [Backup and restore](../infrastructure/deployment/BACKUP_RESTORE.md)
+- [Rollback](../infrastructure/deployment/ROLLBACK.md)
+- [Nginx configuration](../infrastructure/nginx/README.md)
 
-A production security-hardening guide remains required before production.
+These documents define a production/production-like UAT foundation. They do **not** by themselves prove production readiness.
 
-### Testing / Verification
+## Product authority map
 
-- [CI Foundation](architecture/ci-foundation.md)
-- [TESSELA Revision UAT](architecture/tessela-revision-uat.md)
-- GitHub Actions and repository tests are execution evidence.
-
-`docs/reviews/` contains the S3.6 implementation-validation and rollout-UAT matrix at [S3.6 Offline ActivityReport Draft UAT](reviews/s3.6-offline-draft-uat.md) and the completed S4 closure matrix at [S4.6 Reconciliation & Storage-Cleared UAT](reviews/s4.6-reconciliation-uat.md). The S4 matrix records both automated evidence and the browser checks that closed S4 on merged PR #83.
-
-### Operations / Deployment
-
-Runtime configuration remains under `infrastructure/`, not `docs/`:
-
-- [Docker placeholder](../infrastructure/docker/README.md)
-- [Nginx placeholder](../infrastructure/nginx/README.md)
-- [Deployment placeholder](../infrastructure/deployment/README.md)
-
-These are placeholders, not proof of production readiness.
-
-### Bakaran Platform Integration
-
-SMARTLAB must consume shared canonical identity/reference data without surrendering product-local laboratory authority.
-
-Bakaran Platform reference contracts:
-
-- [SMARTLAB Adoption Plan](https://github.com/yogawillyutomo/bakaran-platform/blob/main/docs/09-migration/06-smartlab-adoption.md)
-- [Historical Data Policy](https://github.com/yogawillyutomo/bakaran-platform/blob/main/docs/09-migration/08-historical-data-policy.md)
-
-## Authority map
-
-| Authority | Owns | SMARTLAB rule |
+| Authority | Owns | LARAS rule |
 | --- | --- | --- |
-| **BP Master Data / School Core target** | shared School, Person, PhysicalSpace, and academic reference identity | SMARTLAB may map/project canonical references. Canonical Person identity does **not** grant SMARTLAB membership or role. |
-| **TESSELA** | timetable generation, constraint solving, publication/version history | SMARTLAB consumes immutable published timetable evidence; it does not solve or silently rewrite recurring timetables. |
-| **SMARTLAB** | Laboratory operational aggregate; Device; Layout; Transfer; Incident; Availability; Reservation; dated Schedule Exception; Priority Event; LaboratorySession; ActivityReport; Asset; Inventory; Loan custody; Preventive Maintenance; future Work Order/Telemetry | Operational mutations remain tenant-scoped, server-authorized, audited, concurrency-safe, and fail closed. |
-| **SMARTLAB SchoolMembership / product-local RBAC** | SMARTLAB tenant membership and product permissions | Platform Admin/Superadmin status and canonical Person mapping do not implicitly grant SMARTLAB tenant row authority. |
+| **BP Master Data / School Core target** | shared School, Person, PhysicalSpace, and academic reference identity | LARAS may map/project canonical references. Canonical Person identity does **not** grant LARAS membership or role. |
+| **TESSELA** | timetable generation, constraint solving, publication/version history | LARAS consumes immutable published timetable evidence; it does not solve or silently rewrite recurring timetables. |
+| **LARAS** | Laboratory operational aggregate; Device; Layout; Transfer; Incident; Availability; Reservation; dated Schedule Exception; Priority Event; LaboratorySession; ActivityReport; Asset; Inventory; Loan custody; Preventive Maintenance; Work Order; Asset QR identity; telemetry domain | Operational mutations remain tenant-scoped, server-authorized, audited, concurrency-safe, and fail closed. |
+| **LARAS SchoolMembership / product-local RBAC** | LARAS tenant membership and product permissions | Platform Admin/Superadmin status and canonical Person mapping do not implicitly grant LARAS tenant-row authority. |
 
-Laboratory may later map to canonical `PhysicalSpace`, but Device, Layout, Transfer, Incident, maintenance, telemetry, and other laboratory operational lifecycles remain SMARTLAB-owned. Historical product evidence is not silently rewritten when canonical identity changes.
+Laboratory may map to canonical `PhysicalSpace`, but Device, Layout, Transfer, Incident, maintenance, Work Order, telemetry, and other laboratory operational lifecycles remain product-owned unless an explicit future contract changes that authority.
 
-## Canonical milestone roadmap
+## Milestone posture
 
-Status reflects **merged `main`** unless the row explicitly says an open PR is in progress.
+The detailed implementation history is preserved in Git, pull requests, contracts, migrations, and review evidence rather than duplicated as a mutable release-status table here.
 
-| Milestone | Status | Delivered evidence | Remaining scope | Dependency | Canonical docs | Current/latest PR or commit | Next gate |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| S0 — Source-of-Truth Foundation | Substantially complete | canonical auth/current membership foundation, source-of-truth matrix, canonical Laboratory/Device/Incident dashboard reads, regression boundaries | final retirement occurs only in S8 | none | `CURRENT_STATE.md`, `source-of-truth-migration.md` | `a9707763` foundation; later slices extend it | keep regression/fail-closed boundaries intact |
-| S1 — Tenant Administration / Master | Partial | Identity Administration, SchoolMembership-aware server authorization, role/permission catalog, academic master stable IDs | tenant settings; tenant-specific permission overrides; canonical audit-log query API/UI; shared BP Master Data adoption | S0 | identity + academic master contracts | `82f2b0bc` reconciliation after `5ffa9806` / `9245583a` | lock remaining tenant/admin contracts without weakening product-local RBAC |
-| S2.1 — Timetable contract | Complete / locked | immutable full School+Semester publication semantics and occurrence contract | none inside S2.1 | ADR-001, stable academic refs | published timetable contract | `908afbee` | preserve contract |
-| S2.2 — Published timetable backend | Complete | PostgreSQL publication/entry/occurrence persistence, validation, replay protection, activation, audit | none inside S2.2 | S2.1 | published timetable contract | `9c61f340` | preserve activation integrity |
-| S2.3 — Current-plan read + frontend cutover | Complete | canonical occurrence queries and `/schedules` cutover | none inside S2.3 | S2.2 | current state + migration doc | `5163f19f` | preserve TESSELA authority |
-| S2.4 — Operational Calendar / Closure | Complete | canonical blockers/informational events, optimistic concurrency, audit | none inside S2.4 | S2.3 | calendar contract | `7dee3c1e` | preserve non-destructive cancellation |
-| S2.5 — Unified Availability | Complete | explainable availability, fail-closed unknown, schedule coverage, blockers/notices | future S4 maintenance/assets add new evidence without bypassing engine | S2.4 | availability contract | `10f1e081` | preserve fail-closed semantics |
-| S2.6 — Reservations | Complete | canonical lifecycle, serialized checks, approval re-check, ETag, audit | none inside S2.6 | S2.5 | reservation contract | `7f30be37` | preserve mutation serialization |
-| S2.7 — Dated Schedule Exceptions | Complete | one-date cancel/relocate overlays, safe restore, audit, versioning | no general time/date reschedule solver | S2.5–S2.6 | exception contract | `63392a49` | preserve immutable TESSELA source |
-| S2.8 — Priority Events + revision reconciliation | Complete | canonical Priority Events, deterministic publication impact, shared School-scoped operational write mutex, activation fail-closed | none inside S2.8 | S2.5–S2.7 | priority event + reconciliation docs | PR #68 / `28d6db8e` | preserve impact fingerprint/revalidation |
-| S3.1 — Execution/report contract | Complete / locked | source-bound Session/ActivityReport semantics, explicit Incident linkage, offline authority rules | none inside S3.1 | S2 complete | Session + ActivityReport contract | PR #69 / `acf3d0b2` | preserve contract |
-| S3.2 — LaboratorySession backend | Complete | source provenance, lifecycle, ETag, fingerprint revalidation, actual occupancy, source mutation guards | none inside S3.2 | S3.1 | Session + ActivityReport contract | PR #70 / `f2eb41a7` | preserve source revalidation |
-| S3.3 — ActivityReport backend | Complete | 1:1 report, atomic end→draft, lifecycle, aggregate attendance boundary, manual backfill | none inside S3.3 | S3.2 | Session + ActivityReport contract | PR #71 / `d54fa17f` | preserve version/audit semantics |
-| S3.4 — Pelaksanaan Lab frontend cutover | Complete | canonical `/sessions`, server source discovery/actions, report workflow, `/journals` compatibility redirect | browser-local retirement only after all remaining consumers migrate | S3.2–S3.3 | current state + migration doc | PR #72 / `723744b4` | do not restore local Session/Journal authority |
-| S3.5 — Execution evidence | Complete | immutable observations, explicit idempotent Observation→Incident promotion, private report attachments | no attachment delete path in S3.5 by design | S3.4 | Session + ActivityReport contract | PR #73 / `a15d3912` | preserve immutable evidence/private storage boundary |
-| S3.6 — Offline Report Draft Sync + Operational UAT | **Implementation complete; production-rollout UAT pending** | controlled offline draft working copies, idempotent server sync ledger, conflict/rebase UX, OpenAPI 0.24, automated contract/UAT coverage, and checked-in operator matrix | execute authenticated-browser/DevTools network-toggle scenarios in the target rollout environment and record deployment/UAT evidence | S3.5 | Session/Report contract + `docs/reviews/s3.6-offline-draft-uat.md` | PR #74 / S3.6 implementation | keep server/version authority fail-closed; proceed to S4 implementation planning while rollout UAT remains a production gate |
-| S4.1 — Asset / Inventory / Loan / Preventive Maintenance contract | **Complete / locked** | accepted ADR-002, S4 semantic contract, prototype reconciliation audit | none inside S4.1 | S3 complete | ADR-002 + S4 contract | PR #78 / `0318c2f9` | preserve authority split |
-| S4.2 — Fixed Asset canonicalization | **Complete / merged** | tenant-scoped Asset persistence, exact optional 1:1 Device link, lifecycle actions, ETag/audit, OpenAPI 0.25, canonical `/assets` cutover | coordinated terminal Device lifecycle remains future work; no authority weakening | S4.1 | S4 contract + current state + migration doc | PR #79 / `69cf3305` | exact merged-head CI passed |
-| S4.3 — Inventory immutable ledger | **Complete / merged** | InventoryItem, 3-decimal balance, immutable InventoryTransaction, `FOR UPDATE` serialization, non-negative guards, idempotent mutation replay, OpenAPI 0.26, canonical `/stock` cutover | S4.5/S5 add their own explicit Inventory consumption integrations without bypassing the ledger | S4.2 | S4 contract + current state + migration doc | PR #80 / `1a34dc23` | exact merged-head API/web CI passed |
-| S4.4 — Loan / LoanItem custody | **Complete / merged** | exact Asset LoanItems, requester/view-all scope, ETag lifecycle, deterministic Asset locks, DB active-custody uniqueness, condition-out/return evidence, append-only Loan events, OpenAPI 0.27, canonical `/loans` cutover | S4.5 adds symmetric Maintenance exclusion without weakening Loan authority | S4.3 | S4 contract + current state + migration doc | PR #81 / `f85f2edf` | exact merged-head API/web CI passed |
-| S4.5 — Preventive Maintenance | **Complete / merged** | exact Asset MaintenancePlan/Execution, immutable snapshots, ETag lifecycle, active Maintenance custody, symmetric Loan↔Maintenance exclusion, audited Asset condition completion, atomic Inventory issue consumption, OpenAPI 0.28, canonical `/maintenance` cutover | none inside S4.5; S4.6 proves cross-domain closure | S4.4 | S4 contract + current state + migration doc | PR #82 / `e3da257c` | exact merged-head API/web CI passed |
-| S4.6 — S4 reconciliation/UAT | **Complete / merged; S4 closed** | read-only Asset operational-state projection + provenance, active-custody lifecycle/unlink guard, versioned in-progress Maintenance checklist progress, PostgreSQL negative-stock/double-loan/Loan↔Maintenance contention gate, historical reconstruction tests, aggregate S4 source-of-truth scan, relative-doc-link CI, and recorded browser UAT | none inside S4.6; Laboratory-scale Maintenance Campaign/Batch remains a separate future orchestration UX | S4.5 merged | S4 contract + `reviews/s4.6-reconciliation-uat.md` + source-of-truth migration | PR #83 / `3757e986` | exact merged-head workflow #313 passed; proceed contract-first to S5 without weakening S4 authority |
-| S5.1 — Corrective Work Order contract | **Complete / locked** | accepted ADR-003 + exact-Asset Work Order contract: 0..N Incident linkage, corrective custody, Inventory-only part use, Asset-authority verification, and no implicit Device/Incident/Laboratory mutation | none inside S5.1 | S4 closed | ADR-003 + `work-order-domain-contract.md` | PR #85 / `8c7f84ee` | preserve the authority lock |
-| S5.2 — Work Order core + corrective custody | **Complete / merged** | WorkOrder/Event persistence, School/year numbering, exact Asset + Laboratory snapshots, optional Incident link, ETag lifecycle through completed/rework/cancel, corrective custody, Loan/PM/WorkOrder exclusion, Asset terminal guard integration, derived `in_repair`, PostgreSQL race proof, OpenAPI 0.31 | none inside S5.2 | S5.1 locked | ADR-003 + Work Order contract + source-of-truth migration | PR #86 / `91000032` | preserve merged authority |
-| S5.3 — Inventory + verification integration | **Complete / merged** | `work-orders.consume-stock`; immutable WorkOrderPartUsage bound at DB layer to sourced InventoryTransaction; idempotent Work Order part issue; managerial verification via Asset authority; Asset-version drift fail-closed; atomic corrective-custody release; PostgreSQL stock + verification contention proofs; OpenAPI 0.32 | none inside S5.3 | S5.2 merged | ADR-003 + Work Order contract + OpenAPI 0.32 | PR #87 / `5835b10a` | preserve merged Inventory/verification authority |
-| S5.4 — Work Order frontend cutover + UAT | **Implementation candidate / PR #88** | canonical typed Work Order gateway; `/work-orders` server-authoritative cutover; exact Asset/Lab/optional Incident selection; server-derived assignee candidates; Inventory-authoritative part issue; server verification; server route/nav permissions; browser-local source boundary; automated CI green | manual storage-cleared browser UAT still required before S5 closure | S5.3 merged | OpenAPI 0.32 + `reviews/s5.4-work-order-uat.md` | PR #88 | execute exact-head manual browser UAT, record evidence, then review/merge |
-| S6 — PC Monitoring Telemetry | Planned | privacy direction documented only | agent enrollment/revocation, telemetry ingestion/read models, buffering/update policy | device authority + production security | AGENTS/current state; future telemetry contract | none | implement revocable machine auth and approved telemetry only |
-| S7 — Notifications / Reporting / Final Reads | Planned | partial canonical source domains exist | notifications, analytics/reporting, final dashboard/global search, audit reads | S4–S6 source maturity | future reporting/read-model docs | none | no metrics from browser seed/local prototype |
-| S8 — Browser-local Removal | Planned | migrated routes already prohibit local authority | remove remaining AppData/browser business persistence, legacy seed/business DTOs and compatibility layers after final consumers move | S4–S7 | source-of-truth migration | none | full regression + browser UAT with storage cleared |
+High-level posture:
 
-## Cross-cutting deferred work
+- **S0–S4:** foundational source-of-truth, scheduling/operations, execution/reporting, Asset/Inventory/Loan/Preventive Maintenance work is merged in stages; preserve established authority and concurrency invariants.
+- **S5:** Corrective Work Order authority and Asset QR/label identity reached merged implementation tranches; S5.6 merged with LARAS branding, canonical public QR origin, and production-deployment foundation. Runtime/browser/privacy/auth/PDF/physical-print/real-phone evidence remains a release-acceptance concern where not yet recorded.
+- **S6:** PC Monitoring Telemetry is developed under a privacy-bounded, revocable-machine-auth architecture. Development may occur on isolated draft branches, but merge/deploy governance must follow the locked dependency and final reconciliation rules.
+- **S7–S8:** notifications/reporting/final reads and remaining browser-local retirement stay future work unless superseded by newer repository evidence.
 
-These items remain explicit debt and must **not** be artificially forced into S3.6:
+For current branch, exact HEAD, PR, CI, and deployment status, verify remote GitHub and the target runtime directly. This document intentionally does not embed a mutable `main` SHA.
 
-- tenant settings;
-- tenant-specific permission override contract/editor;
-- audit-log query API/UI;
-- Excel import foundation;
-- Master Data import/adoption;
-- production deployment topology;
-- Docker build/runtime;
-- reverse proxy;
-- environment/secrets policy;
-- Redis/queue/scheduler operations;
-- backup and restore;
-- restore rehearsal;
-- rollback;
-- health/readiness;
-- structured logging;
-- metrics and alerting;
-- observability;
-- incident response;
-- security hardening;
-- data retention;
-- PC Agent deployment/update/revocation;
-- disaster recovery;
-- exact release evidence and production runbook.
+## Bakaran Platform integration
+
+LARAS consumes shared canonical identity/reference data without surrendering product-local laboratory authority.
+
+Existing Bakaran Platform reference documents may still use the historical SMARTLAB name in filenames or text. That historical naming does not change current product branding or LARAS product-local RBAC boundaries.
+
+## Repository-rebrand boundary
+
+Public product identity is **LARAS**. The GitHub repository may temporarily remain named `SMARTLAB` until the controlled repository-rebrand tranche is merged and the explicit repository-administration rename is performed.
+
+The GitHub rename must not trigger blind internal-namespace changes. Compatibility-sensitive identifiers such as existing package names, database/schema/table names, environment variables, storage keys, historical URLs, and test identities are migrated only when there is a concrete benefit and a verified compatibility plan.
+
+After the repository is renamed, active developer remotes and integrations should be updated explicitly to the new repository URL.
 
 ## Documentation taxonomy target
 
-Long-term convergence should target:
+Long-term convergence targets:
 
 ```text
 docs/
@@ -228,34 +157,21 @@ docs/
 └── references/
 ```
 
-This is a **target taxonomy**, not a mandate to move current files immediately.
+This is a target taxonomy, not a mandate to move historical files immediately. Current durable links and evidence take precedence over cosmetic symmetry.
 
-Current links/history take precedence over cosmetic symmetry. Existing domain contracts and ADRs may stay under `docs/architecture/` until a move has a concrete benefit and a controlled link-migration plan. `packages/contracts/` remains outside `docs/`, and `infrastructure/` remains the runtime/infrastructure configuration location.
+## Production acceptance principle
 
-## Production documentation gate
+Production acceptance requires evidence, not labels. At minimum, the applicable release must prove:
 
-SMARTLAB is not production-documentation complete while the infrastructure directories are placeholders.
+1. production topology and trust boundaries;
+2. TLS, environment/secrets handling, and origin configuration;
+3. migration and release sequencing;
+4. backup/restore and rollback capability appropriate to the rollout;
+5. health/readiness behavior;
+6. server authorization, tenant isolation, audit, and concurrency invariants;
+7. browser/runtime UAT for the deployed release;
+8. privacy checks for public/signed-out surfaces;
+9. physical/PDF/real-device evidence where a feature depends on printed QR labels or device interaction;
+10. exact release evidence tying commit, CI, configuration, and deployment/UAT together.
 
-Before production, documentation and executable configuration must cover at least:
-
-1. production topology and network/trust boundaries;
-2. Docker image/build/runtime topology;
-3. Nginx/reverse proxy and TLS policy;
-4. environment and secrets lifecycle;
-5. Redis, queue worker, scheduler, retry/dead-letter operations;
-6. migrations and release sequencing;
-7. backup policy and restore rehearsal evidence;
-8. rollback procedure and compatibility constraints;
-9. health/readiness probes;
-10. structured logging and correlation;
-11. metrics, alerting, dashboards, and observability ownership;
-12. incident-response runbook;
-13. security hardening and access review;
-14. data retention/deletion policy;
-15. PC Agent enrollment, deployment, update, credential rotation/revocation and recovery;
-16. disaster recovery objectives and rehearsal;
-17. exact release evidence: commit, artifacts, migrations, configuration, CI, UAT, approvals, deploy/rollback record.
-
-See [Documentation Convergence Audit](architecture/DOCUMENTATION_CONVERGENCE.md) for the evidence matrix behind this index.
-
-- [S1–S5 UAT Fixture Seeder](reviews/s1-s5-uat-fixture-seeder.md) — repeatable local/testing canonical fixtures, role accounts, safety guards, and manual-UAT boundaries.
+A green CI run is necessary evidence for a release candidate, but it is not alone sufficient proof of production readiness.
