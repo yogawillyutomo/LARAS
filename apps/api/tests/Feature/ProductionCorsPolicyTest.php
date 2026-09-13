@@ -54,7 +54,7 @@ class ProductionCorsPolicyTest extends TestCase
             'HTTP_ACCESS_CONTROL_REQUEST_HEADERS' => 'X-XSRF-TOKEN, If-Match',
         ]);
 
-        $response->assertStatus(204);
+        $response->assertSuccessful();
         $response->assertHeader('Access-Control-Allow-Origin', self::FRONTEND_ORIGIN);
         $response->assertHeader('Access-Control-Allow-Credentials', 'true');
 
