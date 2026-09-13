@@ -38,7 +38,15 @@ class ProductionCorsPolicyTest extends TestCase
             ->get('/api/v1/me');
 
         $response->assertStatus(401);
-        $response->assertHeaderMissing('Access-Control-Allow-Origin');
+
+        // With one configured origin, fruitcake/php-cors safely emits that single
+        // allowed origin even for a disallowed request. Browsers reject the
+        // response because it does not match the request Origin.
+        $response->assertHeader('Access-Control-Allow-Origin', self::FRONTEND_ORIGIN);
+        $this->assertNotSame(
+            'https://evil.example',
+            $response->headers->get('Access-Control-Allow-Origin'),
+        );
     }
 
     public function test_preflight_accepts_stateful_and_concurrency_headers_for_laras(): void
@@ -54,7 +62,7 @@ class ProductionCorsPolicyTest extends TestCase
             'HTTP_ACCESS_CONTROL_REQUEST_HEADERS' => 'X-XSRF-TOKEN, If-Match',
         ]);
 
-        $response->assertSuccessful();
+        $response->assertStatus(204);
         $response->assertHeader('Access-Control-Allow-Origin', self::FRONTEND_ORIGIN);
         $response->assertHeader('Access-Control-Allow-Credentials', 'true');
 
