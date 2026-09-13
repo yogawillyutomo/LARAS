@@ -141,11 +141,47 @@ jobs:
           SESSION_DRIVER: array
           QUEUE_CONNECTION: sync
 
-      - name: Validate production cache commands
+      - name: Validate production config cache
+        run: php artisan config:cache
+        env:
+          APP_ENV: production
+          APP_DEBUG: 'false'
+          CORS_ALLOWED_ORIGINS: https://laras.bakaranproject.com
+          SANCTUM_STATEFUL_DOMAINS: laras.bakaranproject.com
+          SESSION_DOMAIN: laras.bakaranproject.com
+          SESSION_SECURE_COOKIE: 'true'
+          CACHE_STORE: array
+          SESSION_DRIVER: array
+          QUEUE_CONNECTION: sync
+
+      - name: Validate production route cache
+        run: php artisan route:cache
+        env:
+          APP_ENV: production
+          APP_DEBUG: 'false'
+          CORS_ALLOWED_ORIGINS: https://laras.bakaranproject.com
+          SANCTUM_STATEFUL_DOMAINS: laras.bakaranproject.com
+          SESSION_DOMAIN: laras.bakaranproject.com
+          SESSION_SECURE_COOKIE: 'true'
+          CACHE_STORE: array
+          SESSION_DRIVER: array
+          QUEUE_CONNECTION: sync
+
+      - name: Validate production view cache
+        run: php artisan view:cache
+        env:
+          APP_ENV: production
+          APP_DEBUG: 'false'
+          CORS_ALLOWED_ORIGINS: https://laras.bakaranproject.com
+          SANCTUM_STATEFUL_DOMAINS: laras.bakaranproject.com
+          SESSION_DOMAIN: laras.bakaranproject.com
+          SESSION_SECURE_COOKIE: 'true'
+          CACHE_STORE: array
+          SESSION_DRIVER: array
+          QUEUE_CONNECTION: sync
+
+      - name: Clear production caches
         run: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
           php artisan config:clear
           php artisan route:clear
           php artisan view:clear
