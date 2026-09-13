@@ -1,6 +1,8 @@
-# SmartLab API
+# LARAS API
 
-Laravel 13 REST API for SmartLab's school laboratory management platform.
+Laravel 13 REST API for **LARAS — Laboratory Asset & Resource Administration System**.
+
+LARAS is the public product identity. The Composer package name and selected internal/test identifiers may intentionally retain the legacy `smartlab` namespace until a compatibility-safe migration is justified.
 
 ## Runtime and database
 
@@ -9,7 +11,7 @@ Laravel 13 REST API for SmartLab's school laboratory management platform.
 - PostgreSQL is the canonical development and production database
 - SQLite `:memory:` is used only by the portable automated test suite
 
-PostgreSQL integration validation is pending until a dedicated safe SmartLab development or test database is available.
+PostgreSQL is required for production and for the concurrency/invariant tests that depend on PostgreSQL locking and database constraints.
 
 ## Local setup
 
@@ -30,7 +32,7 @@ php artisan route:list
 php artisan test
 ```
 
-The PHPUnit configuration forces SQLite in-memory storage for tests. Reference RBAC data can be checked safely in that isolated environment with:
+Reference RBAC data can be checked safely in the isolated testing environment with:
 
 ```powershell
 $env:APP_ENV = 'testing'
@@ -39,9 +41,15 @@ $env:DB_DATABASE = ':memory:'
 php artisan migrate:fresh --seed --force
 ```
 
-## API v1 foundation
+PostgreSQL-specific concurrency gates are executed separately by CI and must remain green; portable SQLite tests do not replace those proofs.
+
+## API contract
 
 - `GET /api/v1/health` — public safe health response
-- `GET /api/v1/me` — Sanctum-authenticated current user and active school context
+- `GET /api/v1/me` — Sanctum-authenticated current user and active School context
 
-The source of truth for implemented HTTP contracts is [`packages/contracts/openapi.yaml`](../../packages/contracts/openapi.yaml).
+The machine-readable source of truth for implemented HTTP contracts is [`packages/contracts/openapi.yaml`](../../packages/contracts/openapi.yaml), with domain-specific contracts alongside it.
+
+## Production boundary
+
+Production deployment guidance is maintained under [`infrastructure/deployment/`](../../infrastructure/deployment/README.md). The durable public product origin is `https://laras.bakaranproject.com`; API hosting may move independently as long as the frontend/API origin contract, CORS, TLS, authentication, and canonical QR route remain valid.
