@@ -1,0 +1,63 @@
+# LARAS Laravel API — production/UAT Nginx template
+#
+# Install this TLS server only after a certificate for
+# api.laras.bakaranproject.com exists. The deployment README describes the
+# HTTP bootstrap / ACME sequence.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name api.laras.bakaranproject.com;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name api.laras.bakaranproject.com;
+
+    root /var/www/laras-api/current/apps/api/public;
+    index index.php;
+
+    ssl_certificate /etc/letsencrypt/live/api.laras.bakaranproject.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.laras.bakaranproject.com/privkey.pem;
+
+    server_tokens off;
+    client_max_body_size 12m;
+
+    access_log /var/log/nginx/laras-api.access.log;
+    error_log /var/log/nginx/laras-api.error.log warn;
+
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "no-referrer" always;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+        fastcgi_param HTTP_X_FORWARDED_PROTO $scheme;
+        fastcgi_param HTTPS $https if_not_empty;
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+
+    location ~* \.(?:env|log|sql|sqlite|bak|dump)$ {
+        deny all;
+    }
+}
