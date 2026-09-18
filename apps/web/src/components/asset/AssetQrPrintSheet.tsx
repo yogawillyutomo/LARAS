@@ -80,7 +80,7 @@ export function AssetQrPrintSheet({ batch }: { batch: AssetQrLabelBatch }) {
               >
                 <AssetQrCode publicId={item.publicId} className="block h-auto w-full" showBpMark />
                 <div style={{ minWidth: 0, fontFamily: 'Arial, sans-serif', lineHeight: 1.08 }}>
-                  <div style={{ fontSize: '7pt', fontWeight: 800, letterSpacing: '0.02em' }}>SMARTLAB · BP</div>
+                  <div style={{ fontSize: '7pt', fontWeight: 800, letterSpacing: '0.02em' }}>LARAS · BP</div>
                   <div style={{ marginTop: '1mm', fontSize: batch.templateKey === '40x25' ? '8pt' : '10pt', fontWeight: 800, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.assetCode}</div>
                   <div style={{ marginTop: '0.6mm', fontSize: batch.templateKey === '40x25' ? '6.5pt' : '7.5pt', fontWeight: 600, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{item.assetName}</div>
                   <div style={{ marginTop: '1mm', fontSize: '6pt', fontWeight: 600 }}>{item.laboratory?.code ?? 'NO HOME LAB'}</div>
