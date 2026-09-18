@@ -455,7 +455,7 @@ function LabelPreview({ templateKey, assetCode, assetName, lab, publicId, frozen
           <span className="text-[7px] text-slate-500">{publicId ? 'ECC H · local render' : 'draft only'}</span>
         </div>
         <div className="flex min-w-0 flex-col justify-between py-0.5">
-          <div><div className="text-[9px] font-black tracking-wide">SMARTLAB · BP</div><div className="mt-1 truncate text-sm font-black">{assetCode}</div><div className="line-clamp-2 text-[10px] font-semibold leading-tight">{assetName}</div></div>
+          <div><div className="text-[9px] font-black tracking-wide">LARAS · BP</div><div className="mt-1 truncate text-sm font-black">{assetCode}</div><div className="line-clamp-2 text-[10px] font-semibold leading-tight">{assetName}</div></div>
           <div className="flex items-end justify-between gap-2 text-[8px]"><span>{lab ?? 'NO HOME LAB'}</span><span className="font-semibold">{frozen ? 'FROZEN' : 'DRAFT'}</span></div>
         </div>
       </div>
