@@ -17,7 +17,7 @@ export function authIssueMessage(issue: AuthIssue | null): string {
     case 'SCHOOL_CONTEXT_REQUIRED':
       return 'Akun memiliki lebih dari satu konteks sekolah aktif. Pemilihan sekolah belum tersedia.';
     case 'UNSUPPORTED_ROLE':
-      return 'Role akun belum didukung oleh antarmuka SmartLab. Hubungi administrator.';
+      return 'Role akun belum didukung oleh antarmuka LARAS. Hubungi administrator.';
     case 'AUTH_SERVICE_UNAVAILABLE':
       return 'Layanan autentikasi sedang tidak dapat dijangkau. Periksa koneksi lalu coba lagi.';
     case 'CSRF_RETRY_FAILED':
