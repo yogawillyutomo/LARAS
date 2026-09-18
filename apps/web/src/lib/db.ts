@@ -35,7 +35,7 @@ export function loadDB(): DatabaseLoadResult {
   }
   const normalized = normalizeDB(stored.value);
   if (!normalized.ok) {
-    console.error('Migrasi database SmartLab gagal. Data localStorage asli dipertahankan.', normalized.issues);
+    console.error('Migrasi database LARAS gagal. Data localStorage asli dipertahankan.', normalized.issues);
     return { ok: false, db: generateSeedData(), mode: 'recovery', issues: normalized.issues, rawPreserved: true };
   }
   if (normalized.changed) {

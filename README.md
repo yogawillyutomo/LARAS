@@ -8,7 +8,7 @@ LARAS is a school laboratory management platform for planning laboratory use, op
 
 Canonical public origin: `https://laras.bakaranproject.com`
 
-> Repository note: the GitHub repository is still named `SMARTLAB` during the controlled repository-rename tranche. Public product identity is **LARAS**. Historical commits, branch names, database/schema identifiers, package names, environment variables, storage keys, and test identities may retain the legacy `SMARTLAB` / `smartlab` identifier where renaming would create compatibility risk without user-facing benefit.
+> Repository note: the GitHub repository rename is complete. The canonical repository is `yogawillyutomo/LARAS`. Historical commits, branch names, database/schema identifiers, package names, environment variables, storage keys, and test identities may retain the legacy `SMARTLAB` / `smartlab` identifier where renaming would create compatibility risk without user-facing benefit.
 
 Canonical brand contract: [LARAS Brand & Canonical Domain Contract](docs/product/LARAS_BRAND.md).  
 Canonical human documentation entry point: [LARAS Documentation](docs/README.md).

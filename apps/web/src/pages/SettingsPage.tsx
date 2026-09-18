@@ -60,7 +60,7 @@ export function SettingsPage() {
 
   function handleExport() {
     if (!canManage) return;
-    try { downloadJSON('smartlab-backup.json', JSON.parse(exportDB())); toast('Backup data berhasil diunduh', 'success'); }
+    try { downloadJSON('laras-backup.json', JSON.parse(exportDB())); toast('Backup data berhasil diunduh', 'success'); }
     catch (error) { toast(error instanceof Error ? error.message : 'Backup tidak dapat diekspor', 'error'); }
   }
 
@@ -91,7 +91,7 @@ export function SettingsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Pengaturan" description="Konfigurasi sistem SmartLab" icon={<SettingsIcon className="h-5 w-5" />} />
+      <PageHeader title="Pengaturan" description="Konfigurasi sistem LARAS" icon={<SettingsIcon className="h-5 w-5" />} />
       <div className="grid gap-6 lg:grid-cols-[220px_1fr]">
         <Card>
           <CardContent className="space-y-1 p-2">

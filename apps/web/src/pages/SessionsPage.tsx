@@ -1357,7 +1357,7 @@ export function SessionsPage() {
       <Card>
         <CardContent>
           <p className="text-sm text-ink-secondary">
-            Data halaman mengikuti konteks Lab global di topbar dan berasal dari API canonical SmartLab. Sumber normal hanya Jadwal TESSELA, Reservasi yang disetujui, atau Kegiatan Prioritas yang disetujui. Tidak ada lagi Session/Journal browser-local pada route ini.
+            Data halaman mengikuti konteks Lab global di topbar dan berasal dari API canonical LARAS. Sumber normal hanya Jadwal TESSELA, Reservasi yang disetujui, atau Kegiatan Prioritas yang disetujui. Tidak ada lagi Session/Journal browser-local pada route ini.
           </p>
         </CardContent>
       </Card>
@@ -1549,7 +1549,7 @@ export function SessionsPage() {
         title={editingReport ? `Lengkapi ${editingReport.reportNumber}` : 'Lengkapi Laporan'}
         description={editingReport?.revisionReason
           ? `Catatan revisi: ${editingReport.revisionReason}`
-          : 'Draft teks dapat disimpan lokal saat koneksi putus; server tetap authority dan presensi individual tetap di luar SmartLab.'}
+          : 'Draft teks dapat disimpan lokal saat koneksi putus; server tetap authority dan presensi individual tetap di luar LARAS.'}
         onSubmit={() => void saveReport()}
         submitLabel={online ? (draftSyncStatus === 'clean' ? 'Draft Tersinkron' : 'Sinkronkan Draft') : 'Simpan Lokal'}
         submitDisabled={draftSyncStatus === 'conflict'}

@@ -56,7 +56,7 @@ function issueMessage(error: unknown): string {
     }
     if (error.code === 'UNAUTHENTICATED') return 'Sesi berakhir. Silakan masuk kembali.';
     if (error.code === 'FORBIDDEN') return 'Anda tidak memiliki izin untuk tindakan ini.';
-    if (error.kind === 'network') return 'API SmartLab tidak dapat dijangkau.';
+    if (error.kind === 'network') return 'API LARAS tidak dapat dijangkau.';
     return error.message;
   }
   if (error instanceof Error) return error.message;
@@ -236,7 +236,7 @@ export function UsersPage() {
 
   function exportCurrentPage() {
     if (!membershipPage) return;
-    downloadCSV('pengguna-smartlab.csv', membershipPage.data.map((membership) => ({
+    downloadCSV('pengguna-laras.csv', membershipPage.data.map((membership) => ({
       Nama: membership.user.name,
       Email: membership.user.email,
       NIP: membership.user.nip ?? '',
