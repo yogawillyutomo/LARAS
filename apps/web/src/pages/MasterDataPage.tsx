@@ -128,7 +128,7 @@ function issueMessage(error: unknown): string {
     if (error.status === 428) return 'Versi data tidak valid. Muat ulang data lalu coba kembali.';
     if (error.code === 'UNAUTHENTICATED') return 'Sesi berakhir. Silakan masuk kembali.';
     if (error.code === 'FORBIDDEN') return 'Anda tidak memiliki izin untuk tindakan ini.';
-    if (error.kind === 'network') return 'API SmartLab tidak dapat dijangkau.';
+    if (error.kind === 'network') return 'API LARAS tidak dapat dijangkau.';
     if (error.errors) return Object.values(error.errors).flat()[0] ?? error.message;
     return error.message;
   }
