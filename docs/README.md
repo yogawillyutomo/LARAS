@@ -15,6 +15,7 @@ Brand and compatibility contract: [LARAS Brand & Canonical Domain Contract](prod
 ### Product
 
 - [LARAS Brand & Canonical Domain Contract](product/LARAS_BRAND.md)
+- [Toolman / Teknisi Operational Coverage](product/TOOLMAN_TEKNISI_OPERATIONAL_COVERAGE.md) — proposed nine-duty reporting contract tracked by issue #95
 - [Legacy SMARTLAB Operational Workflow Specification](product/SMARTLAB_OPERATIONAL_WORKFLOW_SPEC.md) — historical filename retained for link stability
 - [Legacy Product Requirements Document](product/PRD_SmartLab_PPLG_v1.0.docx) — historical artifact
 
@@ -131,11 +132,11 @@ Existing Bakaran Platform reference documents may still use the historical SMART
 
 ## Repository-rebrand boundary
 
-Public product identity is **LARAS**. The GitHub repository may temporarily remain named `SMARTLAB` until the controlled repository-rebrand tranche is merged and the explicit repository-administration rename is performed.
+Public product identity is **LARAS** and the GitHub repository rename is complete. The canonical repository is `yogawillyutomo/LARAS`.
 
-The GitHub rename must not trigger blind internal-namespace changes. Compatibility-sensitive identifiers such as existing package names, database/schema/table names, environment variables, storage keys, historical URLs, and test identities are migrated only when there is a concrete benefit and a verified compatibility plan.
+The completed GitHub rename does not authorize a blind internal-namespace rewrite. Compatibility-sensitive identifiers such as existing package names, database/schema/table names, environment variables, storage keys, historical URLs, and test identities are migrated only when there is a concrete benefit and a verified compatibility plan.
 
-After the repository is renamed, active developer remotes and integrations should be updated explicitly to the new repository URL.
+Active developer remotes, deployment automation, and integrations should use the canonical `yogawillyutomo/LARAS` repository instead of relying on the legacy repository redirect.
 
 ## Documentation taxonomy target
 
