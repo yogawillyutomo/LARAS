@@ -123,7 +123,7 @@ function AppBootstrap() {
   if (!ready || !isUIHydrated) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-base-900 text-sm text-ink-muted">
-        Memuat SmartLab...
+        Memuat LARAS...
       </div>
     );
   }
