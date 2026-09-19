@@ -6,7 +6,7 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 
 - [ ] Record exact API Git SHA.
 - [ ] Confirm the SHA belongs to the S5.6 code tree under test plus the approved deployment-foundation tranche.
-- [ ] Confirm PR #90 remains Draft and unmerged.
+- [ ] Confirm the exact release SHA includes the merged S5.6 code tree and the approved deployment foundation.
 - [ ] Confirm `laras.bakaranproject.com` is the canonical frontend/QR origin.
 - [ ] Decide the VPS public IPv4 address for `api-laras.bakaranproject.com`.
 - [ ] Ensure SSH key access exists; disable password/root SSH where practical.
@@ -15,7 +15,7 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 
 ## DNS and TLS
 
-- [ ] Create Cloudflare `A` record `api.laras` -> VPS IPv4.
+- [ ] Create Cloudflare `A` record `api-laras` -> VPS IPv4.
 - [ ] Keep Cloudflare proxy DNS-only for initial UAT.
 - [ ] Verify public DNS resolves to the expected VPS.
 - [ ] Install the HTTP-only Nginx bootstrap vhost.
