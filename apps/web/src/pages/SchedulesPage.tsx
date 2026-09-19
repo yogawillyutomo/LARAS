@@ -495,7 +495,7 @@ export function SchedulesPage() {
     <div className="space-y-6">
       <PageHeader
         title="Jadwal Reguler"
-        description="Current plan TESSELA mengikuti konteks Lab global di topbar, dengan operational overlay SmartLab yang bertanggal dan non-destruktif."
+        description="Current plan TESSELA mengikuti konteks Lab global di topbar, dengan operational overlay LARAS yang bertanggal dan non-destruktif."
         icon={<CalendarDays className="h-5 w-5" />}
         actions={(
           <>
@@ -534,7 +534,7 @@ export function SchedulesPage() {
                 </Badge>
               </div>
               <p className="mt-1 max-w-3xl text-xs leading-5 text-ink-muted">
-                Guru, kelas, mapel, hari, jam, dan planned Laboratory tetap berasal dari TESSELA. SmartLab hanya dapat
+                Guru, kelas, mapel, hari, jam, dan planned Laboratory tetap berasal dari TESSELA. LARAS hanya dapat
                 membatalkan occurrence atau merelokasi Laboratory untuk satu tanggal melalui Schedule Exception yang diaudit.
                 Exception tidak mengubah recurring timetable sumber.
               </p>

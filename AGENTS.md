@@ -32,7 +32,7 @@ npm run build
 ```
 
 ## Frontend rules
-- Preserve the current dark SmartLab design and icon-based PC monitoring identity.
+- Preserve the current dark LARAS design and icon-based PC monitoring identity.
 - Mobile operational flows must be intentionally designed, not merely desktop layouts shrunk to phone width.
 - Use route parameters for detail pages and support browser deep links.
 - Enforce permissions at menu, page, and action levels.

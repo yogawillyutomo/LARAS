@@ -13,7 +13,7 @@ function issueMessage(error: unknown): string {
   if (error instanceof ApiClientError) {
     if (error.code === 'UNAUTHENTICATED') return 'Sesi berakhir. Silakan masuk kembali.';
     if (error.code === 'FORBIDDEN') return 'Anda tidak memiliki izin melihat Hak Akses.';
-    if (error.kind === 'network') return 'API SmartLab tidak dapat dijangkau.';
+    if (error.kind === 'network') return 'API LARAS tidak dapat dijangkau.';
     return error.message;
   }
   if (error instanceof Error) return error.message;
@@ -74,7 +74,7 @@ export function RolesPage() {
       Membership: role.membershipCount,
       MembershipAktif: role.activeMembershipCount,
     })));
-    downloadCSV('hak-akses-smartlab.csv', rows);
+    downloadCSV('hak-akses-laras.csv', rows);
   }
 
   return (

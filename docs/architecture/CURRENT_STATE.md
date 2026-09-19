@@ -1,7 +1,7 @@
-# SmartLab Current Architecture State
+# LARAS Current Architecture State
 
-**Snapshot date:** 2026-09-10  
-**Baseline:** `main@276326946bd4d4b9c6cf7073058886a893279e52`. S5 is closed: PR #88 squash-merged as `3d455868ebe61e910655897fd7803cc1ca25ffcc`, PR #89 squash-merged as `276326946bd4d4b9c6cf7073058886a893279e52`, and post-merge GitHub Actions CI #341 plus Vercel are green. S5.6 Asset QR Identity & Label Batch is the active development tranche before S6 telemetry.
+**Snapshot date:** 2026-09-18  
+**Baseline:** `main@dc64a4c14b754cc9dcdf11f889054a73d5df5d90`. S5 is closed, S5.6 Asset QR Identity & Label Batch is merged in PR #90 / `ca09a49525a40627c3a409169c137f7def92991b`, the repository-facing LARAS rebrand is merged in PR #93, the GitHub repository rename to `yogawillyutomo/LARAS` is complete, and the operator release/deployment runbook is merged in PR #94. Runtime/browser/privacy/auth/PDF/physical-print/real-phone QR evidence remains a production release-acceptance concern where not yet recorded. S6 machine-identity work remains isolated in draft PR #91 and must be reconciled with current `main` before merge.
 
 This document is the concise operational snapshot for contributors. It complements the longer product specification and source-of-truth migration roadmap.
 
@@ -44,19 +44,35 @@ These areas are backed by Laravel/PostgreSQL or the server authorization/session
 | Monitoring Device inventory | **S5 merged / canonical:** canonical Device API inventory, lifecycle, and technical profile; heartbeat/CPU/RAM/disk/network telemetry remains deferred to S6 |
 | Global Laboratory context | **S5 merged / canonical:** topbar context supports all Laboratories or one exact Laboratory and propagates through Dashboard, Monitoring, Device, Asset, Incident, Work Order, Maintenance/Campaign, Schedule, Reservation, Session/ActivityReport, Operational Calendar, and Loan presentation/query boundaries; school-scoped Calendar events remain visible in Laboratory context |
 
-## Current development — S5.6 Asset QR Identity & Label Batch
+## S5.6 closure — Asset QR Identity & Label Batch
 
-S5.6 starts from post-merge-green `main@276326946bd4d4b9c6cf7073058886a893279e52` on branch `feat/s5-6-asset-qr-labels`.
+S5.6 is merged on `main` through PR #90.
 
-Locked direction:
+Merged authority includes:
 
-- QR identity belongs to the canonical Asset, never to Loan and never by reusing Device QR identity;
-- QR payload contains only a random non-enumerable public identifier; internal ULIDs, serial number, purchase price, funding source, supplier, borrower identity, audit internals, and technical profile are not encoded;
-- anonymous scan response uses a dedicated safe-minimal projection, never `AssetResource`;
-- authenticated expansion remains permission-gated and resolves live canonical Asset/linked Device/custody state rather than copying mutable data into the QR;
-- token rotation/revocation preserves history and does not increment or bypass Asset version authority;
-- label batches are immutable snapshots with append-only generation/reprint evidence and no Asset/Device/Inventory/custody mutation;
-- initial label templates are 40×25 mm, 50×30 mm (default), and 70×40 mm; PDF/rendering follows after persistence/API authority is proven.
+- Asset-owned random public QR identity with issue/rotate/revoke history;
+- anonymous safe-minimal public scan projection;
+- authenticated same-School handoff under normal RBAC;
+- immutable label batch/item snapshots and append-only reprint evidence;
+- 40×25 mm, 50×30 mm, and 70×40 mm label layouts;
+- locally rendered QR/PDF behavior under the permanent `https://laras.bakaranproject.com/q/<public-uuid>` contract;
+- LARAS public branding and the production deployment foundation.
+
+Merge status does not by itself prove production acceptance. Deployment/runtime, browser/privacy/auth, PDF measurement, physical printer, and real-phone scan evidence remain explicit release gates where not yet recorded.
+
+## Current development — S6 PC Monitoring Telemetry
+
+S6 development remains privacy-bounded and must not be treated as merged production capability.
+
+Current remote posture:
+
+- draft PR #91 implements revocable PC-agent enrollment and machine identity on an older stacked base;
+- its merge base predates the merged S5.6/rebrand/deployment changes;
+- PR #91 must be reconciled/rebased through current `main` before any merge decision;
+- machine identity is separate from human Sanctum/browser authentication;
+- heartbeat persistence, CPU/RAM/disk/network ingestion, telemetry read models, Windows service runtime, and monitoring status remain later S6 slices.
+
+Approved telemetry scope remains limited to device identity, heartbeat, CPU, RAM, disk, network, uptime, and OS/hardware inventory. Keylogging, screenshots, browser history, personal files, clipboard, webcam/microphone content, packet capture, and arbitrary user-content collection remain prohibited.
 
 ## Transitional
 
@@ -73,18 +89,12 @@ These routes/domains still rely wholly or materially on browser-local repositori
 
 ## Planned next
 
-The Master Data ↔ TESSELA ↔ SmartLab boundary is locked by [ADR-001](./ADR-001-master-data-tessela-smartlab-scheduling-boundary.md), and the S2.1 semantic model is locked by [Published Timetable and Schedule Occurrence Contract](./published-timetable-contract.md).
-
-1. S4 is closed on merged PR #83 / `3757e986`; preserve the exact-Asset, immutable-ledger, custody, tenant, and source-of-truth boundaries proven by its automated and browser evidence.
-2. S5.1 is locked on merged PR #85 / `8c7f84ee`; preserve [ADR-003](./ADR-003-corrective-work-order-boundary.md) and the [Work Order contract](./work-order-domain-contract.md).
-3. S5.2 is complete on merged PR #86 / `main@91000032`: preserve canonical WorkOrder core, corrective custody, cross-domain exclusion, `in_repair`, and OpenAPI 0.31 semantics.
-4. S5.3 is complete on merged PR #87 / `main@5835b10a`: preserve least-privilege `work-orders.consume-stock`, immutable sourced WorkOrderPartUsage, idempotent issue, Asset-authority verification, drift guards, atomic custody release, contention proofs, and OpenAPI 0.32.
-5. S5 is closed on `main@276326946bd4d4b9c6cf7073058886a893279e52`; post-merge CI #341 and Vercel are green. Preserve Work Order exact-Asset custody, Maintenance Campaign orchestration-only semantics, PostgreSQL UTC, Activity Report object-map serialization, and Global Laboratory Context.
-6. S5.6 is active: implement Asset-owned QR identity, safe public scan projection, authenticated RBAC expansion, immutable label batch evidence, and printable labels without introducing a new availability/custody authority.
-7. S5.6 must complete persistence/API tests and browser/physical-scan UAT before S6 telemetry.
-8. 10. Phase S6: PC monitoring telemetry.
-11. Phase S7: Notifications, Reporting, final cross-domain search/summary hardening.
-12. Phase S8: remove remaining browser-local compatibility layers after all consumers migrate.
+1. Preserve the merged S0–S5.6 canonical authorities and complete production-like/runtime release acceptance for the current LARAS release where evidence is still outstanding.
+2. Reconcile draft PR #91 with current `main` before continuing S6 merge/deployment work.
+3. Continue S6 in bounded slices: machine identity -> heartbeat/ingestion -> read model/status -> Windows agent runtime -> operator UAT, without expanding the privacy boundary.
+4. Track the nine-duty Toolman/Technician reporting coverage under [Toolman / Teknisi Operational Coverage](../product/TOOLMAN_TEKNISI_OPERATIONAL_COVERAGE.md) and issue #95. Toolman maps to the existing `teknisi` role; Loan/stock mutation authority remains an explicit Admin Lab/Kepala Lab boundary target.
+5. Phase S7: Notifications, Reporting, final cross-domain search/summary hardening.
+6. Phase S8: remove remaining browser-local compatibility layers after all consumers migrate.
 
 ## Reserved / placeholder
 
@@ -96,7 +106,7 @@ Approved future telemetry is limited to device identity, heartbeat, CPU, RAM, di
 
 ### Infrastructure
 
-`infrastructure/docker`, `infrastructure/nginx`, and `infrastructure/deployment` are placeholders. Production container topology, reverse proxy, queue/Redis operations, backup/restore, rollback, observability, and deployment hardening remain future work.
+`infrastructure/nginx` and `infrastructure/deployment` now contain the LARAS API production/UAT foundation, Nginx templates, backup/restore and rollback guidance, and the operator release/deployment runbook. `infrastructure/docker` remains non-authoritative/deferred. Container topology, Redis/queue workers where not required by runtime jobs, and centralized observability remain future work unless newer repository evidence supersedes this snapshot.
 
 ## Locked scheduling ownership boundary
 
@@ -106,20 +116,20 @@ The locked target boundary is:
 
 - BP Master Data: cross-product academic reference authority;
 - TESSELA: sole timetable-generation / constraint-solving authority;
-- SmartLab: Laboratory authority plus operational availability, reservations, dated exceptions, sessions, and journals;
-- SmartLab does not implement a TESSELA-equivalent solver;
-- TESSELA may publish a planned Laboratory reference, while SmartLab owns date-specific operational relocation/closure;
-- the existing SmartLab Academic Master implementation is preserved and may become a synchronized projection/adapter when shared BP Master Data is introduced;
+- LARAS: Laboratory authority plus operational availability, reservations, dated exceptions, sessions, and journals;
+- LARAS does not implement a TESSELA-equivalent solver;
+- TESSELA may publish a planned Laboratory reference, while LARAS owns date-specific operational relocation/closure;
+- the existing LARAS Academic Master implementation is preserved and may become a synchronized projection/adapter when shared BP Master Data is introduced;
 - published timetable versions are immutable and activated atomically after validation.
 - S2.1 further locks full School+Semester snapshot semantics, immutable TimetableEntry rows, materialized ScheduleOccurrence IDs, hash-based idempotency, and one active publication per School+Semester.
 - S2.2 implements that contract in Laravel/PostgreSQL with server permissions, tenant isolation, append-oriented audit, validation/rejection, occurrence materialization, replay protection, and atomic activation/supersession.
-- S2.3 exposes bounded current-plan occurrence queries and cuts `/schedules` over to server authority; structural CRUD actions are removed from the SmartLab schedule UI.
+- S2.3 exposes bounded current-plan occurrence queries and cuts `/schedules` over to server authority; structural CRUD actions are removed from the LARAS schedule UI.
 - S2.4 makes Operational Calendar/Closure canonical: school/laboratory scope, informational/blocked effect, all-day or single-day partial closures, ETag updates, append-oriented audit, and cancel-without-delete semantics.
 - S2.5 adds fail-closed Unified Laboratory Availability: exact-window half-open overlap, explainable blockers/notices, and schedule coverage that never treats missing TESSELA data as free capacity.
 - S2.6 makes Laboratory Reservations canonical: submitted/approved reservations block availability, Laboratory-row locking serializes competing mutations, approval re-checks current availability, requester identity is session-derived, and `/bookings` no longer reads browser-local state.
 - S2.7 makes dated Schedule Exceptions canonical: only one-date cancel/relocate is supported; source occurrences remain immutable; relocation uses the same availability engine; exception cancellation fails closed if restoring the source plan would conflict.
 - S2.8 makes Priority Events canonical and closes timetable-revision safety: priority submission may record conflicts, approval requires a clear Unified Availability result, approved events become blockers, new TESSELA publications expose deterministic impact previews, active exceptions never migrate silently, operational writes share a School-scoped write mutex with activation, and activation fails closed until impact is clear.
-- S3.1 locks the execution/report boundary in [Laboratory Session and Activity Report Contract](./laboratory-session-activity-report-contract.md): normal Sessions originate only from current operational ScheduleOccurrence/approved Reservation/approved Priority Event; source evidence is revalidated before start; in-progress Sessions become operational occupancy; normal ended Sessions own exactly one ActivityReport draft; individual attendance stays outside SmartLab authority; Incident creation from execution observations is explicit; offline report drafts retain server/version authority.
+- S3.1 locks the execution/report boundary in [Laboratory Session and Activity Report Contract](./laboratory-session-activity-report-contract.md): normal Sessions originate only from current operational ScheduleOccurrence/approved Reservation/approved Priority Event; source evidence is revalidated before start; in-progress Sessions become operational occupancy; normal ended Sessions own exactly one ActivityReport draft; individual attendance stays outside LARAS authority; Incident creation from execution observations is explicit; offline report drafts retain server/version authority.
 - S3.2 implements the LaboratorySession backend: PostgreSQL persistence/events, exact source provenance, Teacher.membership_id ownership for Guru schedule execution, School-local start gate, source fingerprint revalidation, actual in-progress availability blockers, source mutation/deactivation guards, timetable `active_session_conflict`, permissions, OpenAPI 0.20, and integration coverage.
 - S3.3 implements the ActivityReport backend: normal Session end atomically creates exactly one draft; report variants are server-validated; aggregate attendance remains non-authoritative for individual students; manual backfill is elevated and never creates a fake Session; report lifecycle/version/audit are canonical under OpenAPI 0.21.
 - S3.4 cuts Pelaksanaan Lab to server authority: ownership-safe `GET /laboratory-session-sources` supplies eligible current sources without display-name inference; `/sessions` provides Today/In Progress/Awaiting Report/History views and canonical Session/report mutations; `/journals` only redirects/deep-links into canonical report history; route/action guards use server permissions; OpenAPI advances to 0.22.

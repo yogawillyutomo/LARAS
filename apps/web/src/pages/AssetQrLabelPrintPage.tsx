@@ -188,7 +188,7 @@ export function AssetQrLabelPrintPage() {
               <div key={item.ordinal} className="grid grid-cols-[112px_minmax(0,1fr)] gap-3 rounded-xl border border-base-600 bg-white p-3 text-slate-950">
                 <AssetQrCode publicId={item.publicId} className="h-auto w-full" showBpMark />
                 <div className="min-w-0 self-center">
-                  <p className="text-xs font-black tracking-wide">SMARTLAB · BP</p>
+                  <p className="text-xs font-black tracking-wide">LARAS · BP</p>
                   <p className="mt-1 truncate text-base font-black">{item.assetCode}</p>
                   <p className="line-clamp-2 text-xs font-semibold">{item.assetName}</p>
                   <p className="mt-2 text-[10px] font-semibold">{item.laboratory?.code ?? 'NO HOME LAB'}</p>
