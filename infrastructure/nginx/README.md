@@ -5,7 +5,7 @@ The initial LARAS production-like API deployment uses Nginx + PHP-FPM on the API
 Canonical API hostname:
 
 ```text
-api.laras.bakaranproject.com
+api-laras.bakaranproject.com
 ```
 
 Templates:
@@ -27,7 +27,7 @@ Templates:
 
    ```bash
    printf 'laras-acme-probe\n' | sudo tee /var/www/laras-acme/.well-known/acme-challenge/laras-probe >/dev/null
-   curl --fail http://api.laras.bakaranproject.com/.well-known/acme-challenge/laras-probe
+   curl --fail http://api-laras.bakaranproject.com/.well-known/acme-challenge/laras-probe
    sudo rm /var/www/laras-acme/.well-known/acme-challenge/laras-probe
    ```
 
@@ -36,7 +36,7 @@ Templates:
    ```bash
    sudo certbot certonly --webroot \
      -w /var/www/laras-acme \
-     -d api.laras.bakaranproject.com
+     -d api-laras.bakaranproject.com
    ```
 
 6. Replace the bootstrap site with `laras-api.conf.example`.
