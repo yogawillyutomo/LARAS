@@ -15,7 +15,7 @@ Templates:
 
 ## Bootstrap order
 
-1. Point Cloudflare DNS `api.laras` to the VPS using an `A` record. Keep it DNS-only during initial UAT.
+1. Point Cloudflare DNS `api-laras` to the VPS using an `A` record. Keep it DNS-only during initial UAT.
 2. Create the ACME webroot:
 
    ```bash
