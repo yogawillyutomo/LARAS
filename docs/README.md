@@ -94,6 +94,7 @@ Executable configuration and operational guidance remain under `infrastructure/`
 - [Deployment foundation](../infrastructure/deployment/README.md)
 - [Production foundation](../infrastructure/deployment/PRODUCTION_FOUNDATION.md)
 - [Production UAT checklist](../infrastructure/deployment/PRODUCTION_UAT_CHECKLIST.md)
+- [Runtime troubleshooting](../infrastructure/deployment/RUNTIME_TROUBLESHOOTING.md)
 - [Backup and restore](../infrastructure/deployment/BACKUP_RESTORE.md)
 - [Rollback](../infrastructure/deployment/ROLLBACK.md)
 - [Nginx configuration](../infrastructure/nginx/README.md)
