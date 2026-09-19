@@ -8,7 +8,7 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 - [ ] Confirm the SHA belongs to the S5.6 code tree under test plus the approved deployment-foundation tranche.
 - [ ] Confirm PR #90 remains Draft and unmerged.
 - [ ] Confirm `laras.bakaranproject.com` is the canonical frontend/QR origin.
-- [ ] Decide the VPS public IPv4 address for `api.laras.bakaranproject.com`.
+- [ ] Decide the VPS public IPv4 address for `api-laras.bakaranproject.com`.
 - [ ] Ensure SSH key access exists; disable password/root SSH where practical.
 - [ ] Ensure system clock/NTP is healthy.
 - [ ] Confirm host/provider firewall does not expose PostgreSQL `5432` publicly.
@@ -20,7 +20,7 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 - [ ] Verify public DNS resolves to the expected VPS.
 - [ ] Install the HTTP-only Nginx bootstrap vhost.
 - [ ] Prove `/.well-known/acme-challenge/` is publicly reachable.
-- [ ] Issue a valid TLS certificate for `api.laras.bakaranproject.com`.
+- [ ] Issue a valid TLS certificate for `api-laras.bakaranproject.com`.
 - [ ] Replace the bootstrap vhost with the normal HTTPS template.
 - [ ] Verify HTTP redirects to HTTPS while the ACME path remains reachable.
 - [ ] Verify the certificate hostname and chain in a normal browser/curl client.
@@ -52,7 +52,7 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 - [ ] `APP_ENV=production`.
 - [ ] `APP_DEBUG=false`.
 - [ ] Persistent `APP_KEY` generated and backed up securely.
-- [ ] `APP_URL=https://api.laras.bakaranproject.com`.
+- [ ] `APP_URL=https://api-laras.bakaranproject.com`.
 - [ ] Unique LARAS DB user/password configured.
 - [ ] LARAS DB role is not superuser and has no unnecessary `CREATEDB`/`CREATEROLE` capability.
 - [ ] `SANCTUM_STATEFUL_DOMAINS=laras.bakaranproject.com`.
@@ -92,7 +92,7 @@ Use this checklist for the first API deployment that supports S5.6 runtime/QR UA
 ## Vercel handoff
 
 - [ ] Production `VITE_PUBLIC_SCAN_ORIGIN=https://laras.bakaranproject.com`.
-- [ ] Production `VITE_API_ORIGIN=https://api.laras.bakaranproject.com`.
+- [ ] Production `VITE_API_ORIGIN=https://api-laras.bakaranproject.com`.
 - [ ] Frontend redeployed after env change.
 - [ ] `/dashboard` no longer shows an invalid-response auth error.
 - [ ] Signed-out browser reaches the login flow normally.
