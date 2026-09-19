@@ -263,7 +263,7 @@ echo "$RELEASE_SHA"
 echo "$RELEASE_DIR"
 ```
 
-Release sebaiknya hanya dilakukan ketika CI exact commit tersebut sudah hijau.
+Release sebaiknya hanya dilakukan setelah exact-release validation gate yang berlaku untuk environment saat itu PASS. Jika GitHub Actions unavailable, gunakan local parity/validation evidence yang disetujui untuk tranche tersebut dan jangan menganggap absence of CI sebagai PASS.
 
 ---
 
@@ -908,6 +908,9 @@ Smoke test lagi.
 
 # 28. Perintah Diagnostik
 
+Untuk diagnosis runtime yang lebih lengkap—termasuk `HTTP 500`, `tempnam()` / Blade compiler, writable directories, PHP-FPM identity, public debug exposure, dan safe recovery—ikuti `RUNTIME_TROUBLESHOOTING.md`.
+
+
 Laravel log:
 
 ```bash
@@ -980,7 +983,7 @@ git -C /var/www/laras-api/current rev-parse HEAD
 ```text
 Merge ke main
    ↓
-Pastikan CI hijau
+Exact-release validation gate PASS
    ↓
 Ambil exact main SHA
    ↓
