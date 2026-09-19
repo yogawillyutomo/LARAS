@@ -138,7 +138,7 @@ Di Cloudflare buat record:
 
 ```text
 Type    : A
-Name    : api.laras
+Name    : api-laras
 Content : <PUBLIC_IP_VPS>
 Proxy   : DNS only
 TTL     : Auto
@@ -870,7 +870,7 @@ Smoke test lagi.
 ## Sebelum deploy
 
 - [ ] exact `main` SHA diketahui
-- [ ] CI exact release hijau
+- [ ] exact-release local validation gate PASS (GitHub Actions may be unavailable)
 - [ ] DNS `api-laras.bakaranproject.com` benar
 - [ ] firewall benar
 - [ ] PostgreSQL tidak public
