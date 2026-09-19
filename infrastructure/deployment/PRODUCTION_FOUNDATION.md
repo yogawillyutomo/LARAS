@@ -2,7 +2,7 @@
 
 Status: **S5.6 production-like UAT foundation**  
 Frontend canonical origin: `https://laras.bakaranproject.com`  
-API canonical origin: `https://api.laras.bakaranproject.com`
+API canonical origin: `https://api-laras.bakaranproject.com`
 
 ## Purpose
 
@@ -18,7 +18,7 @@ Browser / phone
     +--> https://laras.bakaranproject.com
     |        Vercel React/Vite frontend
     |
-    +--> https://api.laras.bakaranproject.com
+    +--> https://api-laras.bakaranproject.com
              Nginx + PHP-FPM + Laravel API
                       |
                       +--> PostgreSQL
@@ -31,7 +31,7 @@ The frontend hostname is permanent because it is encoded in physical QR labels. 
 
 The first UAT deployment intentionally uses a small single-VPS operating model:
 
-- Nginx terminates TLS for `api.laras.bakaranproject.com`;
+- Nginx terminates TLS for `api-laras.bakaranproject.com`;
 - PHP-FPM runs Laravel;
 - PostgreSQL may run on the same VPS initially but MUST listen only on loopback/private interfaces;
 - Laravel database sessions and database cache are retained;
@@ -49,7 +49,7 @@ Required invariants:
 
 - `APP_ENV=production`;
 - `APP_DEBUG=false`;
-- `APP_URL=https://api.laras.bakaranproject.com`;
+- `APP_URL=https://api-laras.bakaranproject.com`;
 - generated, persistent `APP_KEY`;
 - PostgreSQL credentials unique to LARAS;
 - `SANCTUM_STATEFUL_DOMAINS=laras.bakaranproject.com`;
@@ -140,7 +140,7 @@ Do not run seeders automatically in production. Reference/catalog seed behavior 
 
 ```bash
 curl --fail --show-error --silent \
-  https://api.laras.bakaranproject.com/up
+  https://api-laras.bakaranproject.com/up
 ```
 
 ### Unauthenticated API contract
@@ -148,7 +148,7 @@ curl --fail --show-error --silent \
 ```bash
 curl -i \
   -H 'Accept: application/json' \
-  https://api.laras.bakaranproject.com/api/v1/me
+  https://api-laras.bakaranproject.com/api/v1/me
 ```
 
 Expected: HTTP `401` with JSON containing `code: UNAUTHENTICATED`, not HTML.
@@ -161,7 +161,7 @@ Allowed origin:
 curl -i \
   -H 'Origin: https://laras.bakaranproject.com' \
   -H 'Accept: application/json' \
-  https://api.laras.bakaranproject.com/api/v1/me
+  https://api-laras.bakaranproject.com/api/v1/me
 ```
 
 Expected headers include:
@@ -175,7 +175,7 @@ Rejected-origin probe:
 curl -i \
   -H 'Origin: https://evil.example' \
   -H 'Accept: application/json' \
-  https://api.laras.bakaranproject.com/api/v1/me
+  https://api-laras.bakaranproject.com/api/v1/me
 ```
 
 The response MUST NOT contain `Access-Control-Allow-Origin: https://evil.example`. With the single allowed-origin optimization it may contain the fixed canonical LARAS origin; that still blocks `evil.example` in browsers.
@@ -185,7 +185,7 @@ The response MUST NOT contain `Access-Control-Allow-Origin: https://evil.example
 ```bash
 curl -i \
   -H 'Origin: https://laras.bakaranproject.com' \
-  https://api.laras.bakaranproject.com/sanctum/csrf-cookie
+  https://api-laras.bakaranproject.com/sanctum/csrf-cookie
 ```
 
 Expected: successful response and secure cookies scoped for the LARAS web/API relationship.
@@ -196,7 +196,7 @@ Only after the API smoke tests pass, set the Vercel Production variables:
 
 ```text
 VITE_PUBLIC_SCAN_ORIGIN=https://laras.bakaranproject.com
-VITE_API_ORIGIN=https://api.laras.bakaranproject.com
+VITE_API_ORIGIN=https://api-laras.bakaranproject.com
 ```
 
 Then redeploy the frontend because Vite environment values are compiled at build time.

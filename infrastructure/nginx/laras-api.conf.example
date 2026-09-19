@@ -1,13 +1,13 @@
 # LARAS Laravel API — production/UAT Nginx template
 #
 # Install this TLS server only after a certificate for
-# api.laras.bakaranproject.com exists. Use the HTTP-only bootstrap template
+# api-laras.bakaranproject.com exists. Use the HTTP-only bootstrap template
 # for the first ACME issuance.
 
 server {
     listen 80;
     listen [::]:80;
-    server_name api.laras.bakaranproject.com;
+    server_name api-laras.bakaranproject.com;
 
     root /var/www/laras-acme;
 
@@ -23,13 +23,13 @@ server {
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name api.laras.bakaranproject.com;
+    server_name api-laras.bakaranproject.com;
 
     root /var/www/laras-api/current/apps/api/public;
     index index.php;
 
-    ssl_certificate /etc/letsencrypt/live/api.laras.bakaranproject.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/api.laras.bakaranproject.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/api-laras.bakaranproject.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api-laras.bakaranproject.com/privkey.pem;
 
     server_tokens off;
     client_max_body_size 12m;
