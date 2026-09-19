@@ -12,7 +12,7 @@ Browser / Phone
    +--> https://laras.bakaranproject.com
    |      Vercel — React/Vite frontend
    |
-   +--> https://api.laras.bakaranproject.com
+   +--> https://api-laras.bakaranproject.com
           VPS
           Nginx
           PHP-FPM 8.3
@@ -147,19 +147,19 @@ TTL     : Auto
 Hasil akhir:
 
 ```text
-api.laras.bakaranproject.com -> VPS
+api-laras.bakaranproject.com -> VPS
 ```
 
 Verifikasi dari komputer lokal:
 
 ```bash
-nslookup api.laras.bakaranproject.com
+nslookup api-laras.bakaranproject.com
 ```
 
 atau:
 
 ```bash
-dig +short api.laras.bakaranproject.com
+dig +short api-laras.bakaranproject.com
 ```
 
 Jangan lanjut ke TLS sebelum DNS sudah mengarah ke IP VPS yang benar.
@@ -324,7 +324,7 @@ APP_NAME="LARAS API"
 APP_ENV=production
 APP_KEY=
 APP_DEBUG=false
-APP_URL=https://api.laras.bakaranproject.com
+APP_URL=https://api-laras.bakaranproject.com
 
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
@@ -555,14 +555,14 @@ Setelah DNS sudah benar:
 sudo certbot certonly \
   --webroot \
   -w /var/www/laras-acme \
-  -d api.laras.bakaranproject.com
+  -d api-laras.bakaranproject.com
 ```
 
 Verifikasi:
 
 ```bash
 sudo ls -la \
-  /etc/letsencrypt/live/api.laras.bakaranproject.com/
+  /etc/letsencrypt/live/api-laras.bakaranproject.com/
 ```
 
 ---
@@ -613,7 +613,7 @@ sudo systemctl reload php8.3-fpm
 
 ```bash
 curl --fail --show-error --silent \
-  https://api.laras.bakaranproject.com/up
+  https://api-laras.bakaranproject.com/up
 ```
 
 ## Unauthenticated API
@@ -621,7 +621,7 @@ curl --fail --show-error --silent \
 ```bash
 curl -i \
   -H 'Accept: application/json' \
-  https://api.laras.bakaranproject.com/api/v1/me
+  https://api-laras.bakaranproject.com/api/v1/me
 ```
 
 Expected: HTTP `401` dengan JSON berisi `code: UNAUTHENTICATED`, bukan HTML.
@@ -632,7 +632,7 @@ Expected: HTTP `401` dengan JSON berisi `code: UNAUTHENTICATED`, bukan HTML.
 curl -i \
   -H 'Origin: https://laras.bakaranproject.com' \
   -H 'Accept: application/json' \
-  https://api.laras.bakaranproject.com/api/v1/me
+  https://api-laras.bakaranproject.com/api/v1/me
 ```
 
 Expected header:
@@ -648,7 +648,7 @@ Access-Control-Allow-Credentials: true
 curl -i \
   -H 'Origin: https://evil.example' \
   -H 'Accept: application/json' \
-  https://api.laras.bakaranproject.com/api/v1/me
+  https://api-laras.bakaranproject.com/api/v1/me
 ```
 
 Server **tidak boleh** mengembalikan `Access-Control-Allow-Origin: https://evil.example`.
@@ -658,7 +658,7 @@ Server **tidak boleh** mengembalikan `Access-Control-Allow-Origin: https://evil.
 ```bash
 curl -i \
   -H 'Origin: https://laras.bakaranproject.com' \
-  https://api.laras.bakaranproject.com/sanctum/csrf-cookie
+  https://api-laras.bakaranproject.com/sanctum/csrf-cookie
 ```
 
 Expected: successful response, secure cookies, dan cookie scope sesuai `laras.bakaranproject.com`.
@@ -671,7 +671,7 @@ Setelah API smoke test PASS, di Vercel Production Environment Variables:
 
 ```env
 VITE_PUBLIC_SCAN_ORIGIN=https://laras.bakaranproject.com
-VITE_API_ORIGIN=https://api.laras.bakaranproject.com
+VITE_API_ORIGIN=https://api-laras.bakaranproject.com
 ```
 
 Karena Vite compile env saat build, lakukan **Redeploy Production**.
@@ -871,7 +871,7 @@ Smoke test lagi.
 
 - [ ] exact `main` SHA diketahui
 - [ ] CI exact release hijau
-- [ ] DNS `api.laras.bakaranproject.com` benar
+- [ ] DNS `api-laras.bakaranproject.com` benar
 - [ ] firewall benar
 - [ ] PostgreSQL tidak public
 - [ ] `.env` production lengkap
