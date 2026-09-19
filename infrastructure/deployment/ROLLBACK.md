@@ -51,7 +51,7 @@ Reload PHP-FPM only when necessary for opcode/process refresh. Do not restart Po
 
 Run:
 
-1. `GET https://api.laras.bakaranproject.com/up`;
+1. `GET https://api-laras.bakaranproject.com/up`;
 2. unauthenticated `/api/v1/me` and confirm JSON `401 UNAUTHENTICATED`;
 3. credentialed CORS check from `https://laras.bakaranproject.com`;
 4. login/session smoke test in the browser;
